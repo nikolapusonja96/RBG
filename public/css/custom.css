@@ -1,0 +1,480 @@
+.window {
+    width: 320px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-left: -10px;
+}
+.containerSlider {
+    display: block;
+    width: 6000px;
+    height: 400px;
+    margin-left: 0px;
+}
+.slider {
+    width: 320px;
+    height: 420px;
+    position: relative;
+    float: left;
+}
+/*home slider*/
+.windowSlider{
+    width: 750px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+.containerHome{
+    display: block;
+    width: 6000px;
+    height: 400px;
+    margin-left: 0px;
+}
+.sliderHome{
+    width: 750px;
+    height: 400px;
+    position: relative;
+    float: left;
+}
+.indexContent{
+    width: 600px;
+    height: 220px;
+    border-top: 1px solid goldenrod;
+}
+.loginBg{
+    background-color: #ECEBEB;
+    height: 509px;
+    margin-top: -30px;
+}
+.loginForm{
+    border:1px solid darkslategray;
+    width: 500px;
+    height: 330px;
+    margin-left: 110px;
+}
+/* Blue */
+.blueBtn{
+    background-color: dodgerblue;
+}
+
+/*registracija*/
+/*............................*/
+.note
+{
+    text-align: center;
+    height: 80px;
+    width: 60%;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.note p{
+    color:wheat;
+}
+.form-content
+{
+    padding: 5%;
+    color:black;
+    border: 1px solid darkslategray;
+    border-top: none;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin-bottom: 2%;
+    width: 60%;
+    background-color: #ECEBEB;
+}
+.form-control{
+    border-radius:1.5rem;
+}
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    /*padding: 1%;*/
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+.btnSubmit:hover
+{
+    background-color: white;
+    color: #2e6da4;
+    border:1px solid blue;
+}
+
+.restaurant-jobs-txt{
+    margin-top: 1px;
+    margin-left: 45px;
+}
+.btnRestaurantJobs{
+    width: 90%;
+    margin-right: 20px;
+    margin-top: -95px;
+    animation: blinker 3s linear infinite;
+}
+.btnRestaurantJobs:hover{
+    background-color: white;
+    color: #2e6da4;
+    border:2px solid blue;
+    animation: none;
+}
+.img-add{
+    float: right;
+    margin-right: 25px;
+    animation: blinker 2s linear infinite;"
+}
+.img-add:hover{
+    animation:none;
+}
+.job-i-txt{
+    font-family: arial;
+    font-weight: normal;
+    color: darkblue;
+}
+.job-i-headline{
+    color:darkred;
+    /*animation: blinker 3s linear infinite;*/
+}
+.job-i-headline:hover{
+    color:darkblue;
+    text-transform: uppercase;
+}
+@keyframes blinker {
+    70% {
+        opacity: 0.2;
+    }
+}
+.job-i-text{
+    color:darkred;
+}
+/*style="width: 30%;margin-right:10px;margin-top: -85px;height: 100%"*/
+.register-form{
+    height: 494px;
+}
+
+.registrationBackground{
+    background-color: #E2E2E2;
+}
+
+.registrationInput{
+    border: 1px solid darkslategray;
+}
+.regRestaurants{
+    background-color: #ECEBEB;
+    height: 120px;
+    width: 400px;
+    border-radius: 20px;
+}
+
+
+.note_sidebar
+{
+    text-align: center;
+    height: 80px;
+    width: 90%;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+    border-radius: 20px;
+    animation: blinker 2s linear infinite;
+}
+.note_sidebar:hover{
+    background: -webkit-linear-gradient(left, #66512c, #2ED9EA);
+    border-radius: 0px;
+    animation: none;
+}
+.note_sidebar p{
+    color:wheat;
+}
+.regRestaurants a{
+    text-decoration: none;
+}
+.regRestaurants p{
+    color:wheat;
+}
+.registrationStar{
+    color:red;
+}
+/*...............................................*/
+
+.view-group {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.thumbnail
+{
+    margin-bottom: 10px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 10px;
+    width: 650px;
+    box-shadow: 20px 20px 50px 10px dimgray;
+}
+.like{
+    float:right;
+    margin-top: -100px;
+    color:gray;
+}
+
+.like:hover{
+    color:mediumseagreen;
+    cursor:pointer;
+}
+
+/* Tooltip text */
+.tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: lightslategray;
+    color: wheat;
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    margin-left: -110px;
+    z-index: 1;
+    font-size: 18px;
+    position: absolute;
+}
+
+.like:hover .tooltip-text {
+    visibility: visible;
+    /*margin-left: 0px;*/
+}
+
+.small-like{
+    float:right;
+    margin: 5px;
+    color:gray;
+}
+.small-like:hover{
+    color:mediumseagreen;
+    /*font-weight: bold;*/
+    cursor:pointer;
+}
+.small-like:hover .tooltip-text {
+    visibility: visible;
+    /*margin-left: 0px;*/
+}
+
+.cart-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    border:2px solid deepskyblue;
+}
+.item.list-group-item
+{
+    float: none;
+    width: 50%;
+    background-color: #fff;
+    margin-bottom: 30px;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 1rem;
+    border: 0;
+}
+.item.list-group-item .img-event {
+    float: left;
+    width: 30%;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+    display: inline-block;
+}
+.item.list-group-item .caption
+{
+    float: left;
+    width: 70%;
+    margin: 0;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item:after
+{
+    clear: both;
+}
+
+.restaurantButton
+{
+    width: 460px;
+}
+.restaurantImg
+{
+    width: 150px;
+    height: 220px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    box-shadow: 5px 5px dimgray;
+    border-radius: 10px;
+}
+
+.restaurantHeadline
+{
+    /*padding-top: 20px;*/
+    text-align: center;
+    color: #2e6da4;
+}
+.singleRestaurantHeadline{
+    text-transform: capitalize;
+    font-weight: normal;
+    font-size: 32px;
+    font-family: "Pacifico", cursive;
+    font-style: italic;
+    margin-top: -19px;
+}
+.qty{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+    background: #F8694A;
+    color: #FFF;
+    border-radius: 50%;
+}
+.singleRestaurantHeadline:hover{
+    text-transform: capitalize;
+    font-family: "Pacifico", cursive;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.headline-img{
+    width: 130px;
+    height: 145px;
+    float: left;
+    border-radius: 10px;
+    margin-top: -75px;
+    margin-left: -20px;
+    margin-bottom:-30px;
+    margin-right: 120px;
+}
+.jobImg
+{
+    width: 150px;
+    height: 220px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px dimgray;
+    border-radius: 10px;
+}
+
+.singleProductImg
+{
+    width: 50px;
+    height: 50px;
+}
+.productImg{
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin: 10px 7px 5px 7px;
+    border-radius: 10px;
+}
+.thumbnailProduct{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 10px;
+    width: 650px;
+    height: 100px;
+    background-color: ghostwhite;
+    box-shadow: 20px 20px 70px 20px dimgray;
+}
+
+/**/
+
+/* Create a custom checkbox */
+
+input[type="checkbox"] .regChb{
+    width:18px;
+    height:17px;
+    cursor: pointer;
+    border:1px solid red;
+}
+.strongChbText{
+    margin-left: 10px;
+    font-size: 16px;
+    color: sienna;
+    text-transform: lowercase;
+}
+.strongChbText:hover{
+    text-transform: uppercase;
+}
+
+/*Modal*/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 2px solid #888;
+    color:black;
+    width: 50%; /*70 Could be more or less, depending on screen size */
+}
+
+.modal-content-btn{
+    border: 1px solid gray
+}
+
+/* The Close Button */
+.closeModal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    margin-top: -45px;
+    font-weight: bold;
+}
+
+.closeModal:hover,
+.closeModal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
