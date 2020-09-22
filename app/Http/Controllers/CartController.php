@@ -8,77 +8,23 @@ use Illuminate\Http\Request;
 
 class CartController extends FrontendController
 {
-//    public function addToCart(Request $request, $id)
-//    {
-//        $product = $this->product->getCartSingleProduct($id);
-//
-////          dd($product);
-////          $idR = $product->restaurant_id; //id restorana
-////          dd($idR);
-//
-//        $oldCart = session()->has('cart') ? session()->get('cart') : null;
-//
-//        //null treba da stoji
-////          if ($oldCart == null){
-////
-////              $cart = new CartModel($oldCart, $idR);
-////              $cart->add($product, $product->id,$idR);
-////              dd($cart);
-////          }
-//
-////          dd($oldCart);
-//        $cart = new CartModel($oldCart); //, $idR
-//
-//        $cart->add($product, $product->id); //,$idR
-////                dd($cart);
-//
-//
-//        $request->session()->put('cart', $cart);
-////                dd($cart);
-//
-//        return redirect()->back()->with('message', 'Uspešno ste dodali proizvod u korpu!');
-//
-//////          if ($oldCart->idR != $idR)
-//////          {
-//////              return redirect('/');
-//////          }
-//////            else {
-////                $cart->add($product, $product->id,$idR);
-//////                dd($cart);
-////
-////
-////                $request->session()->put('cart', $cart);
-//////                dd($cart);
-////
-////                return redirect()->back()->with('message', 'Uspešno ste dodali proizvod u korpu!');
-//////            }
-//    }
     public function addToCart(Request $request, $id)
     {
         $product = $this->product->getCartSingleProduct($id);
 
-        $idR = $product->restaurant_id; //id restorana proizvoda kog dodajemo
-//    $oldCart = null;
+        $idR = $product->restaurant_id; //currently added restaurant_id
+        //
         $oldCart = session()->has('cart') ? session()->get('cart') : null;
 //        dd($oldCart);
 
-        //dd($oldCart->idR, $idR); // ova 2 uporediti, do tu je dobro
-
-        $cart = new CartModel($oldCart); //, $idR
-//        dd($cart);
-
-//           dd($idR, "id restorana proizvoda koji se dodaje", $oldCart->idR, "id restorana restorana vec u korpi");
+        $cart = new CartModel($oldCart);
+//        dd($cart, $idR, $oldCart->idR);
 
         if ($oldCart)
         {
-            //upis
-//            dd($oldCart->idR,"id restorana iz korpe", $idR,"id restorana proizvoda koji se dodaje", $cart);
-            //ovde je $cart->idR nula, treba da ga stavimo da je jednak idR
-//            dd($cart);
 
             $cart->idR = $idR;
 //            dd($oldCart->idR, $idR, $cart->idR);
-//            dd($oldCart->idR != $idR);
             if ($oldCart->idR != $idR)
             {
                 return redirect()->back()->withErrors([
@@ -91,21 +37,16 @@ class CartController extends FrontendController
                 $cart->add($product, $product->PID); //,PID = proizvod ID
 //                dd($cart);
                 $request->session()->put('cart', $cart);
-//                dd(session()->get('cart'));
+
                 return redirect()->back()->with('message', 'Uspešno ste dodali proizvod u korpu!');
             }
-
-            $request->session()->put('cart', $cart);
-
-            return redirect()->back()->with('message', 'Uspešno ste dodali proizvod u korpu!');
         }
-        else //ovaj else je dobar kad je prazna korpa
+        else
         {
-            $cart->add($product, $product->PID); //,PID = proizvod ID
+            $cart->add($product, $product->PID); //PID = product_id
             $cart->idR = $idR;
-//            dd($cart);
             $request->session()->put('cart', $cart);
-//            dd(session()->get('cart'));
+
             return redirect()->back()->with('message', 'Uspešno ste dodali proizvod u korpu!');
         }
     }
