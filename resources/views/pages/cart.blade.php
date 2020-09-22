@@ -19,8 +19,8 @@
                 <li class="list-group-item" style="width: 350px;box-shadow: 5px 5px 1px 4px yellow ; ">
                     <span class="badge">{{$product['qty']}}</span>
 
-                    <img src="{{$product['item']->img}}" class="cart-img" alt="{{$product['item']->description}}"/>
-                    <strong>{{$product['item']->name}}</strong>&nbsp;&nbsp;
+                    <img src="{{$product['item']->img}}" class="cart-img" alt="{{$product['item']->prod_description}}"/>
+                    <strong>{{$product['item']->prod_name}}</strong>&nbsp;&nbsp;
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
                             Akcija<span class="caret"></span>

@@ -8,7 +8,7 @@ class CartModel
     public $items = null;
     public $totalQty = 0;
     public $totalPrice = 0;
-//    public $idR;
+    public $idR;
 
     public function  __construct($oldCart) //,$idR
     {
@@ -25,7 +25,7 @@ class CartModel
         $storedItem = [
             'qty' => 0,
             'price' => $item->price,
-            'item' => $item
+            'item' => $item,
 //            'idR' => $item->restaurant_id
         ];
 
@@ -44,6 +44,7 @@ class CartModel
 
     public function reduceByOne($id)
     {
+//        dd($id);
         $this->items[$id]['qty']--;
         $this->items[$id]['price'] -= $this->items[$id]['item']->price;
         $this->totalQty--;

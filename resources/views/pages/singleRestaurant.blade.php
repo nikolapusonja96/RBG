@@ -151,6 +151,15 @@
                 {{session()->get('message')}};
             </div>
         @endif
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+            <div class="alert alert-danger">
+                <button type="button" class="close" style="height: 20px;" data-dismiss="alert">x</button>
+                <h4>{{$error}}</h4>
+            </div>
+            @endforeach
+        @endif
+
     {{--\--}}
         <h3 class="align-center singleRestaurantHeadline" style="color:darkred;">Restoran {{$product->name}}</h3>
         <img src="{{$product->profile_pic}}" class="headline-img" /><br>

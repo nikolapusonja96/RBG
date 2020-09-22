@@ -16,7 +16,7 @@
 {{--            <div class="col-md-4 col-md-offset-4" style="border:2px solid green;">--}}
                 <div class="panel panel-default loginForm">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Unesite podatke</h3>
+                        <h3 class="panel-title align-center">Unesite podatke</h3>
                     </div>
                     <div class="panel-body">
                         <form action="{{asset('/login')}}" method="post" id="loginForm" accept-charset="UTF-8" role="form">
@@ -30,7 +30,7 @@
                                     <input class="form-control" placeholder="Lozinka" name="password" type="password" required>
                                 </div><br><br>
 {{--                                <a>--}}
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Uloguj se">
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Uloguj se" style="background-color: steelblue">
 {{--                                </a>--}}
                             </fieldset>
                         </form>
