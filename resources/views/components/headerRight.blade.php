@@ -24,7 +24,37 @@
 
         </div>
     <a href="{{asset('/registration')}}" class="button alt">Registracija</a>
-        @else
-        <b> {{session()->get('user')->first_name}}&nbsp;{{session()->get('user')->last_name}}</b>
+
+    @else
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{session()->get('user')->first_name}} {{session()->get('user')->last_name}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="border-top:5px solid blue;"><!--  style="background-color: lightgray; opacity: 0.4;color:red;"-->
+                    <li class="user-ddl-link">
+                        <i class="fa fa-user fa-2x" style="margin-left: 3px"></i>
+                        <a href="{{asset('/user-profile')}}">Moj profil</a>
+                    </li>
+                    <li class="user-ddl-link">
+                        <i class="fa fa-shopping-cart fa-2x" style="margin-left: 3px"></i>
+                        <a href="{{asset('/user-orders')}}">Porudžbine</a>
+                    </li>
+                    <li class="user-ddl-link">
+                        <i class="fa fa-heart fa-2x" style="margin-left: 3px"></i>
+                        <a href="{{asset('/user-liked-restaurants')}}" class="user-ddl-text">Restorani</a>
+                    </li>
+                    <li class="user-ddl-link">
+                        <i class="fa fa-check fa-2x" style="margin-left: 3px"></i>
+                        <a href="{{asset('/user-jobs')}}" class="user-ddl-text">Poslovi</a>
+                    </li>
+                    <li class="user-ddl-link">
+                        <i class="fa fa-lock fa-2x" style="margin-left: 3px"></i>
+                        <a href="{{asset('/logout')}}">Odjava</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     @endif
 </nav>

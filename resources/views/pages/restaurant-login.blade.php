@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="loginBg section-block">
-        <div class="panel panel-default loginForm">
+        <div class="panel-login panel-default loginForm">
             <div class="panel-heading">
                 <h3 class="panel-title align-center">Unesite podatke restorana</h3>
             </div>
@@ -27,9 +27,7 @@
                             Lozinka:
                             <input class="form-control" placeholder="Lozinka" name="passwordRestaurant" type="password" required>
                         </div><br><br>
-                        {{--                                <a>--}}
                         <input class="btn btn-primary btn-success btn-block" type="submit" value="Uloguj se" style="background-color: steelblue">
-                        {{--                                </a>--}}
                     </fieldset>
                 </form>
             </div>
@@ -40,8 +38,6 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        {{--            </div>--}}
-        {{--        </div>--}}
     </div>
 @endsection
 

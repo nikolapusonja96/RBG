@@ -28,8 +28,6 @@
 </div>
 @endsection
 
-{{--@section('sidebar_headline')@endsection--}}
-
 @section('section_bottom')
 <div class="section-block">
     <div class="tab-content">
@@ -42,13 +40,11 @@
         <div role="tabpanel" class="tab-pane active" id="restorani">
             <div class="update-information">
                 <!--update items-->
-
                 <h1 class="section-title align-center" style="color:dodgerblue">{{$job->title}}</h1><br>
                 <div class="container">
                     <div class="row">
                         <div id="products" class="row view-group">
                             <div class="item col-xs-4 col-lg-4">
-{{--                                <h1 class="section-title">Tekst oglasa</h1>--}}
                                 <b>Uslovi:</b>
                                 <li>{{$job->requirements}}</li><br><br>
 
@@ -60,9 +56,24 @@
                             </div>
                         </div><br><br>
                         <hr width="60%">
-                        <a href="{{asset('/application/'.$job->job_id)}}"><button class="btn btn-primary" style="width: 60%">Konkuriši</button></a>
+                        @if(session()->has('user') &&  $userSingleJob == null)
+                        <a href="{{asset('/application/'.$job->job_id)}}">
+                            <button class="btn btn-primary" style="width: 60%">
+                                Konkuriši
+                            </button>
+                        </a>
+                        @elseif(session()->has('user') && session()->get('user')->UID == $userSingleJob->user_id)
+                            <i class="btnDisabled">
+                                <button class="btn btn-primary btnJobApply" disabled>Konkuriši</button>
+                                <span class="tooltip-disabledSingleJobBtn">Vec ste aplicirali ({{$userSingleJob->applied_at}})</span>
+                            </i>
+                        @else
+                        <i class="btnDisabled">
+                            <button class="btn btn-primary btnJobApply" disabled>Konkuriši</button>
+                            <span class="tooltip-disabledSingleJobBtn">Morate biti ulogovani da biste konkurisali</span>
+                        </i>
+                        @endif
                     </div>
-{{--                    <hr width="60%">--}}
                 </div>
                 <!--/update items-->
             </div>

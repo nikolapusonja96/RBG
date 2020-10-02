@@ -20,11 +20,9 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#restorani" aria-controls="restorani" role="tab" data-toggle="tab">Restorani</a></li>
                 <li role="presentation" ><a href="#poslovi" aria-controls="poslovi" role="tab" data-toggle="tab">Poslovi</a></li>
-{{--                <li role="presentation"><a href="#questions" aria-controls="updates" role="tab" data-toggle="tab">Najčešća pitanja</a></li>--}}
             </ul>
         </div>
     </div>
-{{--    <div class="section-block">--}}
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="restorani">
                 <div class="update-information">
@@ -73,13 +71,12 @@
                                 </div>
                             </div>
                             <hr width="60%" style="background-color: darkgoldenrod">
-{{--                        {{$latest_restaurants->links()}}--}}
                     @endforeach
                     </div>
                     <!--/update items-->
                 </div>
             </div>
-{{--           POSLOVI --}}
+{{--     JOBS       --}}
             <div role="tabpanel" class="tab-pane" id="poslovi">
                 <div class="update-information">
                     <h1 class="section-title" align="center"><a href="{{asset('/jobs')}}"> Najnoviji poslovi</a></h1>
@@ -119,21 +116,17 @@
                                 </div>
                             </div>
                             <hr width="60%" style="background-color: darkgoldenrod">
-                            {{--                        {{$latest_restaurants->links()}}--}}
                         @endforeach
                     </div>
                     <!--/update items-->
                 </div>
-
             </div>
-            </div>
-{{--    </div>--}}
+        </div>
 @endsection
 
 @section('sidebar_section')
 <div class="section-block">
     <h1 class="section-title" style="color: #67b168 ">Najbolje ocenjeno</h1>
-{{--    {{dd($top_restaurants)}}--}}
     @foreach($top_restaurants as $top_restaurant)
 
         <div class="badge badge-secondary" style="float: right;"> NOVO</div>
@@ -157,15 +150,3 @@
 @section('sidebar_summary')
    @include('components.socialNetworks')
 @endsection
-
-
-{{--                        <div class="row">--}}
-{{--                            <div class="indexContent reward-block popular">--}}
-
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="indexContent reward-block popular">--}}
-
-{{--                            </div>--}}
-{{--                        </div>--}}

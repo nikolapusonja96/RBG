@@ -27,7 +27,6 @@ class RegistrationRequest extends FormRequest
             'firstName' => 'required|regex:/^[A-zČčĐđĆćŠš]{3,11}$/',
             'lastName' => 'required|regex:/^[A-zČčĐđĆćŠš]{3,11}$/',
             'address' => 'required',
-//            'gender' => 'required',
             'mail' => 'required|email|unique:users,mail|max:70',
             'password' => 'required'
         ];

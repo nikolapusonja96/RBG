@@ -10,17 +10,16 @@ class CartModel
     public $totalPrice = 0;
     public $idR;
 
-    public function  __construct($oldCart) //,$idR
+    public function  __construct($oldCart)
     {
         if($oldCart){
             $this->items = $oldCart->items;
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
-//            $this->idR = $idR;
         }
     }
 
-    public function add($item, $id)//,$idR11
+    public function add($item, $id)
     {
         $storedItem = [
             'qty' => 0,
@@ -62,7 +61,5 @@ class CartModel
         $this->totalPrice -= $this->items[$id]['item']->price * $this->items[$id]['qty'];
 
         unset($this->items[$id]);
-
-
     }
 }

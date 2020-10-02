@@ -15,10 +15,10 @@ class FrontendController extends BaseController
         $slider = new SliderModel();
 
         $this->data['latest_jobs'] = $this->job->getLatestJobs();
-        $this->data['sliderImages'] = $slider->getHomeSlider();
+        $this->data['sliderImages'] = $slider->getBigSlider();
         $this->data['latest_restaurants'] = $this->restaurant->getLatestRestaurants();
         $this->data['top_restaurants'] = $this->restaurant->getTopLikedRestaurants();
-//       dd($this->data);
+
         return view('pages.index', $this->data);
     }
     public function showAuthor()
@@ -28,20 +28,18 @@ class FrontendController extends BaseController
 
     public function showAbout()
     {
+        $slider = new SliderModel();
+
+        $this->data['smallSlider'] = $slider->getSmallSlider();
         return view('pages.about', $this->data);
     }
 
     //restaurants
-
     public function showRestaurants()
     {
-//        $categories = new CategoriesModel();
-
         $kitchens = new KitchensModel();
         $this->data['restaurants'] = $this->restaurant->getRestaurants();
         $this->data['kitchens'] = $kitchens->getKitchen();
-
-//        dd($this->data);
 
         return view('pages.restaurants', $this->data);
     }
@@ -50,9 +48,8 @@ class FrontendController extends BaseController
     {
         $categories = new CategoriesModel();
 
-        $this->data['categories'] = $categories->getCategories();
+        $this->data['categories'] = $categories->getRestaurantCategories($id);
         $this->data['products'] = $this->restaurant->getRestaurantProducts($id);
-//        dd($this->data['products']);
         $this->data['jobs'] = $this->restaurant->getRestaurantJobs($id);
         $this->data['comments'] = $this->restaurant->getRestaurantComments($id);
 
@@ -61,14 +58,10 @@ class FrontendController extends BaseController
 
         if(session()->has('user')) {
             $like = $this->restaurant->getLikedRestaurant($id);
-
-            $likes = $this->restaurant->getRestaurantLikes($id);
         }
 
         $likes = $this->restaurant->getRestaurantLikes($id);
-//        dd($likes);
 
-//        dd($job_number);
         if (session()->has('user')) {
             return view('pages.singleRestaurant', $this->data,
                 [
@@ -92,9 +85,8 @@ class FrontendController extends BaseController
     {
         $categories = new CategoriesModel();
 
-        $this->data['categories'] = $categories->getCategories();
+        $this->data['categories'] = $categories->getRestaurantCategories($idRestaurant);
         $this->data['products_category'] = $this->product->getCategoryProducts($idRestaurant, $idCategory);
-        $this->data['categories'] = $categories->getCategories();
         $this->data['products'] = $this->restaurant->getRestaurantProducts($idRestaurant);
         $this->data['jobs'] = $this->restaurant->getRestaurantJobs($idRestaurant);
         $this->data['comments'] = $this->restaurant->getRestaurantComments($idRestaurant);
@@ -104,7 +96,6 @@ class FrontendController extends BaseController
 
         if(session()->has('user')) {
             $like = $this->restaurant->getLikedRestaurant($idRestaurant);
-//            $likes = $this->restaurant->getRestaurantLikes($idRestaurant);
         }
 
         $likes = $this->restaurant->getRestaurantLikes($idRestaurant);
@@ -135,26 +126,29 @@ class FrontendController extends BaseController
         $this->data['jobs'] = $this->job->getJobs();
 
         $job = $this->job->getNewestJob();
-//        dd($this->data['newest_job']);
 
         return view('pages.jobs', $this->data, ["job" => $job]);
     }
 
     public function showSingleJob($id)
     {
-//        dd($id);
-
         $this->data['job'] = $this->job->getSingleJob($id);
 
-//        dd($this->data['single_job']);
+        if (session()->has('user')) {
+            $userSingleJob = $this->job->getUserSingleJob($id);
 
-        return view('pages.singleJob', $this->data);
+            return view('pages.singleJob',
+                [
+                    "userSingleJob" => $userSingleJob
+                ], $this->data);
+        }
+        else{
+            return view('pages.singleJob', $this->data);
+        }
     }
 
     public function addApplicant($id)
     {
-        //$id - job id
-//        dd(session()->get('user')->UID, $id);
         $this->job->addApplicant($id);
         return redirect()->back()->with('message', 'Uspesno ste konkurisali za posao');
     }
@@ -163,9 +157,8 @@ class FrontendController extends BaseController
     {
         $restaurant = $this->restaurant->getSingleRestaurant($id);
         $old_likes = $restaurant->likes;
-//        dd($old_likes);
+
         $this->restaurant->newLikes = $old_likes + 1;
-//        dd($this->restaurant->newLikes);
         $this->restaurant->addLike($id);
 
         return redirect()->back()->with('message', 'Uspesno ste lajkovali restoran');
@@ -173,7 +166,6 @@ class FrontendController extends BaseController
 
     public function showKitchenRestaurant($id)
     {
-//        dd($id);
         $kitchen = new KitchensModel();
 
         $this->data['kitchens'] = $kitchen->getKitchen();
@@ -190,7 +182,6 @@ class FrontendController extends BaseController
 
         $this->data['jobs'] = $this->restaurant->getRestaurantJobs($id);
         $this->data['comments'] = $this->restaurant->getRestaurantComments($id);
-
 
         if (session()->has('user')) {
             return view('pages.kitchenRestaurant', $this->data,
@@ -211,14 +202,3 @@ class FrontendController extends BaseController
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -7,46 +7,47 @@
 @section('section_bottom')
 
 @if(session()->has('cart'))
-{{--@section('section_top')--}}
-{{--    <h3 class="section-title">Vasa korpa</h3>--}}
-{{--@endsection--}}
 <div class="row" align="center">
     <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
         <ul class="list-group">
-{{--            {{dd(session()->get('cart'))}}--}}
             @foreach($products as $product)
+{{--                {{dd($product)}}--}}
+
                 <a href="{{asset('/restaurants/'.$product['item']->id)}}" style="text-decoration: none;font-weight: bold">Nazad na meni<br></a><br>
-                <li class="list-group-item" style="width: 350px;box-shadow: 5px 5px 1px 4px yellow ; ">
+
+                <li class="list-group-item" style="width: 350px;box-shadow: 2px 2px 1px 4px gray inset; ">
                     <span class="badge">{{$product['qty']}}</span>
 
                     <img src="{{$product['item']->img}}" class="cart-img" alt="{{$product['item']->prod_description}}"/>
-                    <strong>{{$product['item']->prod_name}}</strong>&nbsp;&nbsp;
+                    <strong>{{$product['item']->prod_name}}</strong>, {{$product['item']->grams}}g &nbsp;
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
                             Akcija<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{asset('/reduce/'.$product['item']->id)}}">Izbriši jedan proizvod</a>
+                                <a href="{{asset('/reduce/'.$product['item']->product_id)}}">Izbriši jedan proizvod</a>
                             </li>
                             <li>
-                                <a href="{{asset('/removeAll/'.$product['item']->id)}}">Izbriši sve proizvode</a>
+                                <a href="{{asset('/removeAll/'.$product['item']->product_id)}}">Izbriši sve proizvode</a>
                             </li>
                         </ul>
                     </div>
                     <br/>
-                    <span class="label label-success">Ukupna cena: {{$product['price']}} RSD</span>
+                    <span class="label label-success">Ukupna cena artikla: {{$product['price']}} RSD</span>
                 </li><br>
             @endforeach
         </ul>
     </div>
 </div>
 <div class="row" align="center">
-    <strong  style="color:black;">Ukupna cena porudžbine: <i style="color:blue;">{{$totalPrice}} RSD</i></strong>
+    <strong  style="color:black;margin-left: 61px">Ukupna cena korpe:
+        <i style="color:blue;">{{$totalPrice}} RSD</i>
+    </strong>
 </div>
 <div class="row" align="center" style="height: 340px"><br>
     <a href="{{asset('/checkout')}}">
-        <button class="primary-btn" style="margin-left: 150px; margin-top: -10px;width: 23%">Naruči <i class="fa fa-arrow-circle-right"></i></button>
+        <button class="primary-btn cartCheckoutBtn" >Naruči <i class="fa fa-arrow-circle-right"></i></button>
     </a>
 </div>
 

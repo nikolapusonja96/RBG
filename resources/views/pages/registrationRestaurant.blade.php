@@ -56,12 +56,6 @@
                                     <label>{{$category->name}}</label>
                                 @endforeach
                             </div><br>
-{{--                            <div class="form-group" style="width: 440px">--}}
-{{--                                @foreach($categories as $category)--}}
-{{--                                    <label>{{$category->name}}</label>--}}
-{{--                                    <input type="checkbox" class="form-control-static registrationInput" value="{{$category->id}}" required name="chbProducts"/>--}}
-{{--                                @endforeach--}}
-{{--                            </div><br>--}}
                         </div>
                         <div class="col-md-6">
                             Cena dostave<b class="registrationStar">*</b>:

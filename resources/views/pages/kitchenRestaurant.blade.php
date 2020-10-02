@@ -3,9 +3,20 @@
     <title>RBG | Restorani</title>
 @endsection
 
-
 @section('section_bottom')
     <div class="container">
+        @if($restaurant_kitchen->isEmpty())
+            <div class="row">
+                <div id="products" class="row view-group">
+                    <div class="item col-xs-4 col-lg-4">
+                        <div class="thumbnail card" style="background-color: #E0E0E0;">
+                            <img src="{{asset('/img/unhappy.jpg')}}" alt="unhappy_kitchen" width="70%" height="50%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr width="60%" style="background-color: darkgoldenrod">
+        @else
         @foreach($restaurant_kitchen as $restaurant)
 {{--            {{dd($restaurant)}}--}}
             <div class="row">
@@ -18,8 +29,8 @@
 
                                 <h3 class="restaurantHeadline group card-title inner list-group-item-heading">
                                     <a href="{{asset('/restaurants/'.$restaurant->RID)}}">{{$restaurant->restaurant_name}}</a>
-                                    <a><i class="small-like fa fa-thumbs-up fa-1x"><br>
-                                            <span class="tooltip-text">Sviđa mi se </span>
+                                    <a><i class="small-like fa fa-thumbs-up fa-1x"> ({{$restaurant->likes}})<br>
+                                            <span class="tooltip-text">Posetite stranicu restorana i lajkujte </span>
                                         </i>
                                     </a>
                                 </h3>
@@ -52,10 +63,15 @@
             <hr width="60%" style="background-color: darkgoldenrod">
             {{$restaurant_kitchen->links()}}
         @endforeach
+        @endif
     </div>
 @endsection
 @section('section_top')
+    @if($restaurant_kitchen->isEmpty())
+        <h1 class="align-center"> Trenutno nema restorana sa izabranom kuhinjom</h1>
+    @else
     <h1 align="center">{{$restaurant->name}} kuhinja</h1>
+    @endif
 @endsection
 @section('sidebar_section')
     <div class="section-block fixed">

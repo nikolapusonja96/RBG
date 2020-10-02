@@ -9,7 +9,7 @@
 */
 
 
-/* Type ne dirati*/
+/**/
 
 	body, input, select, textarea {
 		color: #767d85;
@@ -249,11 +249,11 @@
 	ul {
 		list-style: disc;
 		margin: 0 0 2em 0;
-		padding-left: 1em;
+		/*padding-left: 1em;*/
 	}
 
 		ul li {
-			padding-left: 0.5em;
+			/*padding-left: 0.5em;*/
 		}
 
 		ul.alt {
@@ -263,7 +263,7 @@
 
 			ul.alt li {
 				border-top: solid 1px #dee1e3;
-				padding: 0.5em 0;
+				/*padding: 0.5em 0;*/
 			}
 
 				ul.alt li:first-child {
@@ -279,7 +279,7 @@
 
 			ul.icons li {
 				display: inline-block;
-				padding: 0 1em 0 0;
+				/*padding: 0 1em 0 0;*/
 			}
 
 				ul.icons li:last-child {
@@ -298,7 +298,7 @@
 
 			ul.actions li {
 				display: inline-block;
-				padding: 0 1em 0 0;
+				/*padding: 0 1em 0 0;*/
 				vertical-align: middle;
 			}
 
@@ -307,12 +307,12 @@
 				}
 
 			ul.actions.small li {
-				padding: 0 0.5em 0 0;
+				/*padding: 0 0.5em 0 0;*/
 			}
 
 			ul.actions.vertical li {
 				display: block;
-				padding: 1em 0 0 0;
+				/*padding: 1em 0 0 0;*/
 			}
 
 				ul.actions.vertical li:first-child {
@@ -341,7 +341,7 @@
 
 				ul.actions.fit li {
 					display: table-cell;
-					padding: 0 0 0 1em;
+					/*padding: 0 0 0 1em;*/
 				}
 
 					ul.actions.fit li > * {
@@ -364,7 +364,7 @@
 				}
 
 					ul.actions li {
-						padding: 1em 0 0 0;
+						/*padding: 1em 0 0 0;*/
 						display: block;
 						text-align: center;
 						width: 100%;
@@ -380,11 +380,11 @@
 						}
 
 							ul.actions li > *.icon:before {
-								margin-left: -2em;
+								/*margin-left: -2em;*/
 							}
 
 					ul.actions.small li {
-						padding: 0.5em 0 0 0;
+						/*padding: 0.5em 0 0 0;*/
 					}
 
 						ul.actions.small li:first-child {
@@ -556,7 +556,7 @@
 				background-color: #2190ae;
 			}
 
-		input[type="submit"].disabled, input[type="submit"]:disabled,
+		input[type="submit"].disabled,
 		input[type="reset"].disabled,
 		input[type="reset"]:disabled,
 		input[type="button"].disabled,

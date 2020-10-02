@@ -5,65 +5,52 @@
 @section('section_top')
     <h1 align="center">Restorani</h1>
 @endsection
-
 @section('section_bottom')
-{{--    <div class="section-block">--}}
-{{--        <div class="tab-content">--}}
-{{--            <div role="tabpanel" class="tab-pane active" id="restorani">--}}
-{{--                <div class="update-information">--}}
-                    <!--update items-->
-                    <div class="container">
-                        @foreach($restaurants as $restaurant)
-                        <div class="row">
-                            <div id="products" class="row view-group">
-                                <div class="item col-xs-4 col-lg-4">
-                                    <div class="thumbnail card">
-
-                                        <div class="img-event">
-                                            <img class="restaurantImg group list-group-image img-fluid" src="{{asset($restaurant->profile_pic)}}" alt="restaurant profile pic" />
-
-                                            <h3 class="restaurantHeadline group card-title inner list-group-item-heading">
-                                                <a href="{{asset('/restaurants/'.$restaurant->id)}}">{{$restaurant->name}}</a>
-                                                <a><i class="small-like fa fa-thumbs-up fa-1x"><br>
-                                                        <span class="tooltip-text">Sviđa mi se </span>
-                                                    </i>
-                                                </a>
-                                            </h3>
-                                            <p class="group inner list-group-item-text"style="text-align: center">
-                                                {{$restaurant->description}}
-                                            </p>
-                                        </div><br>
-                                        <div class="caption card-body">
-
-                                            <p class="group inner list-group-item-text" style="text-align: center"> <strong>Minimum za besplatnu dostavu:</strong>
-                                                {{$restaurant->min_delivery}} RSD
-                                            </p>
-                                            <p class="group inner list-group-item-text"style="text-align: center"> <strong>Cena dostava:</strong>
-                                                {{$restaurant->delivery_cost}} RSD
-                                            </p>
-                                            <p class="group inner list-group-item-text"style="text-align: center"> <strong>Vreme za dostavu:</strong>
-                                                {{$restaurant->time_delivery}}'
-                                            </p>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-xs-12 col-md-6"><br>
-                                                    <a class="btn btn-success restaurantButton" href="{{asset('/restaurants/'.$restaurant->id)}}">Prikaži meni</a>
-                                                </div>
-                                            </div>
-                                        </div>
+    <div class="container">
+        @foreach($restaurants as $restaurant)
+            <div class="row">
+                <div id="products" class="row view-group">
+                    <div class="item col-xs-4 col-lg-4">
+                        <div class="thumbnail card">
+                            <div class="img-event">
+                                <img class="restaurantImg group list-group-image img-fluid" src="{{asset($restaurant->profile_pic)}}" alt="restaurant profile pic" />
+                                <h3 class="restaurantHeadline group card-title inner list-group-item-heading">
+                                    <a href="{{asset('/restaurants/'.$restaurant->id)}}">{{$restaurant->name}}</a>
+                                    <a>
+                                        <i style="float:right" class="small-like fa fa-thumbs-up fa-1x">({{$restaurant->likes}})<br>
+                                            <span class="tooltip-text">Posetite stranicu restorana da lajkujete </span>
+                                        </i>
+                                    </a>
+                                </h3>
+                                <p class="group inner list-group-item-text"style="text-align: center">
+                                    {{$restaurant->description}}
+                                </p>
+                            </div><br>
+                            <div class="caption card-body">
+                                <p class="group inner list-group-item-text" style="text-align: center"> <strong>Minimum za besplatnu dostavu:</strong>
+                                    {{$restaurant->min_delivery}} RSD
+                                </p>
+                                <p class="group inner list-group-item-text"style="text-align: center"> <strong>Cena dostava:</strong>
+                                    {{$restaurant->delivery_cost}} RSD
+                                </p>
+                                <p class="group inner list-group-item-text"style="text-align: center"> <strong>Vreme za dostavu:</strong>
+                                    {{$restaurant->time_delivery}}'
+                                </p>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6"><br>
+                                        <a class="btn btn-success restaurantButton" href="{{asset('/restaurants/'.$restaurant->id)}}">Prikaži meni</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                            <hr width="60%" style="background-color: darkgoldenrod">
-                            {{$restaurants->links()}}
-                        @endforeach
                     </div>
-                    <!--/update items-->
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+                </div>
+            </div>
+            <hr width="60%" style="background-color: darkgoldenrod">
+            {{$restaurants->links()}}
+        @endforeach
+    </div>
 @endsection
 
 @section('sidebar_section')
@@ -76,7 +63,6 @@
                 <strong class="strongChbText">{{$kitchen->name}}</strong>
             </li>
         </a>
-{{--        <span class="checkmark"></span>--}}
     </label>
     @endforeach
 </div>

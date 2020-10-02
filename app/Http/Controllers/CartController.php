@@ -11,20 +11,17 @@ class CartController extends FrontendController
     public function addToCart(Request $request, $id)
     {
         $product = $this->product->getCartSingleProduct($id);
-
+//        dd($product);
         $idR = $product->restaurant_id; //currently added restaurant_id
-        //
+
         $oldCart = session()->has('cart') ? session()->get('cart') : null;
 //        dd($oldCart);
 
         $cart = new CartModel($oldCart);
-//        dd($cart, $idR, $oldCart->idR);
 
         if ($oldCart)
         {
-
             $cart->idR = $idR;
-//            dd($oldCart->idR, $idR, $cart->idR);
             if ($oldCart->idR != $idR)
             {
                 return redirect()->back()->withErrors([
@@ -33,9 +30,7 @@ class CartController extends FrontendController
                 ]);
             }
             else{
-//                dd($cart, $oldCart);
-                $cart->add($product, $product->PID); //,PID = proizvod ID
-//                dd($cart);
+                $cart->add($product, $product->PID); //PID = product id
                 $request->session()->put('cart', $cart);
 
                 return redirect()->back()->with('message', 'Uspešno ste dodali proizvod u korpu!');
@@ -57,15 +52,11 @@ class CartController extends FrontendController
         {
             return view('pages.cart', $this->data);
         }
-//        dd(session()->get('cart'));
-
 
         $oldCart = session()->get('cart');
-//          dd($oldCart);
-        $cart = new CartModel($oldCart, $oldCart->idR); //sta je 1
-//          dd($cart->idR);
+        $cart = new CartModel($oldCart, $oldCart->idR);
+//        dd($cart);
 
-        //dodato je id restorano u isti rang kao items
         return view('pages.cart', $this->data, [
             'products' => $cart->items,
             'totalPrice' => $cart->totalPrice
@@ -76,10 +67,13 @@ class CartController extends FrontendController
     {
         $oldCart = session()->has('cart') ? session()->get('cart') : null;
         $cart = new CartModel($oldCart);
+//        dd($cart);
         $cart->reduceByOne($id);
+        $idR = $this->product->getCartSingleProduct($id);
 
         if(count($cart->items) > 0)
         {
+            $cart->idR = $idR->restaurant_id;
             $request->session()->put('cart', $cart);
         }
         else
@@ -95,9 +89,11 @@ class CartController extends FrontendController
         $oldCart = session()->has('cart') ? session()->get('cart') : null;
         $cart = new CartModel($oldCart);
         $cart->removeAll($id);
+        $idR = $this->product->getCartSingleProduct($id);
 
         if(count($cart->items) > 0)
         {
+            $cart->idR = $idR->restaurant_id;
             $request->session()->put('cart', $cart);
         }
         else
@@ -114,20 +110,19 @@ class CartController extends FrontendController
         {
             return view('pages.index', $this->data);
         }
-//          dd(session()->get('cart')); //ovde treba da se stavi id i da se prosledi na checkout
-
-        $idR = session()->get('cart')->idR;
+        $restaurantInfo = $this->restaurant->getCheckoutRestaurantInfo();
+//        dd($restaurantInfo);
         $oldCart = session()->get('cart');
-        $cart = new CartModel($oldCart, $idR);
+        $cart = new CartModel($oldCart);
         $total = $cart->totalPrice;
 
         return view('pages.checkout', $this->data, [
             'total' => $total,
-            'idRestaurant' => $idR
+            'restaurant' => $restaurantInfo
         ]);
     }
 
-    public function placeOrder(Request $request)
+    public function placeOrder(\App\Http\Requests\Checkout $request)
     {
         if(!session()->has('cart'))
         {
@@ -138,30 +133,27 @@ class CartController extends FrontendController
         $oldCart = session()->get('cart');
         $cart = new CartModel($oldCart, $idRestaurant);
 
-//          dd($oldCart);
-        if ($oldCart->items[$idRestaurant]['item']->delivery_cost > 0)
-        {
-            $oldCart->totalPrice += $oldCart->items[$idRestaurant]['item']->delivery_cost;
-        }
-//          dd($oldCart);
-//          dd($cart);
-        $order = new OrdersModel();
+        $restaurant = $this->restaurant->getCheckoutRestaurantInfo();
 
-//  {{session()->get('cart')->items[$idRestaurant]['item']->delivery_cost}}
+        if ($restaurant->delivery_cost > 0)
+        {
+            $oldCart->totalPrice += $restaurant->delivery_cost;
+            $cart->totalPrice += $restaurant->delivery_cost;
+        }
+
+        $order = new OrdersModel();
 
         $order->cart = serialize($cart);
         $order->firstName = session()->get('user')->first_name;
         $order->lastName = session()->get('user')->last_name;
         $order->idRestaurant = $idRestaurant;
-
         $order->deliveryAddress = $request->input('address');
         $order->phone = $request->input('phone');
 
+//        dd($order, session()->get('user')->UID);
         $order->addOrder();
         session()->forget('cart');
 
-        return redirect('/');
-//          return redirect('/user-orders/'.session()->get('user')->UID)->with('message', 'Vaša porudžbina je uspešno prosleđena restoranu');
+        return redirect(asset('/user-orders'))->with('message', 'Vaša porudžbina je uspešno prosleđena restoranu');
     }
-
 }

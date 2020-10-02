@@ -7,22 +7,26 @@
 
 
 @section('section_bottom')
-    {{--<div class="section-block">--}}
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="meni">
             <div class="about-information">
-                {{--                <h1 class="section-title">Meni</h1>--}}
                 <div class="update-information">
                     <div class="container">
-                        {{$products_category->links()}}
-{{--                        @if($products_category == null)--}}
-{{--                            <p>nema kat</p>--}}
-{{--                        @endif--}}
-{{--                        {{dd($products_category)}}--}}
-                        @foreach($products_category as $product)
-{{--                            {{dd($product)}}--}}
+                        @if($products_category->isEmpty())
                             <div class="row">
-
+                                <div id="products" class="row view-group">
+                                    <div class="item col-xs-4 col-lg-4">
+                                        <div class="thumbnail card" style="background-color: #E0E0E0;">
+                                            <img src="{{asset('/img/unhappy.jpg')}}" alt="unhappy_kitchen" width="70%" height="50%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr width="60%" style="background-color: darkgoldenrod">
+                        @else
+                        {{$products_category->links()}}
+                        @foreach($products_category as $product)
+                            <div class="row">
 {{--                                {{dd($product)}}--}}
                                 <div id="products" class="row view-group">
                                     <div class="item col-xs-4 col-lg-4">
@@ -46,24 +50,21 @@
                             <hr width="60%" style="background-color: darkgoldenrod">
                         @endforeach
                         {{$products_category->links()}}
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="restaurantJobs">
             <div class="about-information">
-                {{--                <h1 class="section-title">Meni</h1>--}}
                 <div class="update-information">
                     <div class="container">
                         {{$jobs->links()}}
                         @foreach($jobs as $job)
-                            {{--                            {{dd($job)}}--}}
-
                             <div class="row">
                                 <div id="products" class="row view-group">
                                     <div class="item col-xs-4 col-lg-4">
                                         <div class="thumbnailProduct card">
-                                            {{--                                            <div class="img-event">--}}
                                             <h4 class="restaurant-jobs-txt align-left group card-title inner list-group-item-heading">
                                                 <i class="job-i-txt">Pozicija:</i> &nbsp;&nbsp;&nbsp;
                                                 <a href="{{asset('/jobs/'.$job->id)}}">
@@ -114,23 +115,23 @@
             </div>
         </div>
     </div>
-
-
-    {{--</div>--}}
 @endsection
-{{--{{dd($products_category)}}--}}
 @section('sidebar_section')
 <div class="section-block">
-    <h3 class="section-title">Filteri:</h3>
+    <h3 class="section-title">Naš meni:</h3>
     <label class="container">
         <ul>
+            @if($products_category->isEmpty())
+            @else
             @foreach($categories as $category)
+{{--                {{dd($category)}}--}}
                 <li>
-                    <a href="{{asset('/restaurant/'.$product->restaurant_id)}}{{'/category/'.$category->id}}" style="text-decoration: none;">
-                        <strong class="strongChbText">{{$category->name}}</strong><br>
+                    <a href="{{asset('/restaurant/'.$product->restaurant_id)}}{{'/category/'.$category->category_id}}" style="text-decoration: none;">
+                        <strong class="strongChbText">{{$category->category_name}}</strong><br>
                     </a>
                 </li>
             @endforeach
+            @endif
         </ul>
     </label>
 </div>
@@ -146,8 +147,15 @@
             </div>
         @endif
         {{--\--}}
-        <h3 class="align-center singleRestaurantHeadline" style="color:darkred;">Restoran {{$product->name}}</h3>
-        <img src="{{$product->profile_pic}}" class="headline-img" /><br>
+        @if($products_category->isEmpty())
+            <h3 class="align-center" style="color:darkred;">Trenutno u meniju nemamo proizvoda te kategorije</h3>
+        @else
+        <a href="{{asset('/restaurants/'.$product->restaurant_id)}}" style="text-decoration:underline darkred;">
+            <h3 class="align-center singleRestaurantHeadline" style="color:darkred;">Restoran {{$product->name}}</h3>
+        </a>
+        <a href="{{asset('/restaurants/'.$product->restaurant_id)}}">
+            <img src="{{asset($product->profile_pic)}}" class="headline-img" /><br>
+        </a>
         {{--        {{dd($product)}}--}}
         <div class="section-tabs">
             <ul class="nav nav-tabs" role="tablist">
@@ -179,6 +187,7 @@
                 @endif
             </ul>
         </div>
+        @endif
     </div><br><br>
 @endsection
 

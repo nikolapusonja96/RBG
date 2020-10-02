@@ -17,15 +17,10 @@ class RestaurantsModel
     public $time_delivery;
     public $kitchen;
     public $img;
-//    public $chbs;
 
     public function getRestaurants()
     {
         $result = DB::table('restaurants')
-//            ->join('restaurantcategories','restaurants.id','=','restaurantcategories.restaurant_id')
-//            ->join('categories','restaurantcategories.category_id','=','categories.id')
-//            ->select('*','categories.name as name_category', 'restaurants.name as name_restaurant')
-//            ->distinct()
             ->paginate(10);
         return $result;
     }
@@ -39,7 +34,7 @@ class RestaurantsModel
     }
 
 // for users like restaurant button
-    public function getLikedRestaurant($id) // za logovanje
+    public function getLikedRestaurant($id)
     {
         $result = DB::table('likes')
             ->join('restaurants', 'likes.restaurant_id','=','restaurants.id')
@@ -58,16 +53,9 @@ class RestaurantsModel
             ->join('restaurants', 'likes.restaurant_id','=','restaurants.id')
             ->where('restaurant_id', $id)
             ->select('restaurants.likes')
-//            ->first() ovo je bilo i onda na blade moramo ->likes na $likes
             ->count('likes.id');
         return $result;
     }
-
-//    public function getMostLikedRestaurants()
-//    {
-//        $result = DB::table('restaurants')
-//            ->join('likes','restaurants.id','=','likes.restaurants_id');
-//    }
 
     public function getLatestRestaurants()
     {
@@ -84,7 +72,6 @@ class RestaurantsModel
             ->join('restaurants','restaurantproducts.restaurant_id','=','restaurants.id')
             ->where('restaurantproducts.restaurant_id', $id)
             ->select('*', 'products.name as productName','products.description as productDescription')
-//            ->get();
             ->paginate(5);
         return $result;
     }
@@ -94,8 +81,6 @@ class RestaurantsModel
             ->where('id', $id)
             ->first();
     }
-//   za kategorije         ->join('restaurantcategories','restaurants.id','=','restaurantcategories.restaurant_id')
-//            ->join('categories','restaurantcategories.category_id','=','categories.id')
 
     public function restaurantRegister($chbs)
     {
@@ -110,7 +95,7 @@ class RestaurantsModel
                 'time_delivery' => $this->time_delivery,
                 'email' => $this->email,
                 'password' => md5($this->password),
-                'profile_pic' => $this->img, //videti za sliku
+                'profile_pic' => $this->img,
                 'likes' => 0,
                 'location' => $this->location
             ]);
@@ -126,11 +111,11 @@ class RestaurantsModel
 
     public function getRestaurantJobs($id)
     {
-//        SELECT * FROM jobs j INNER JOIN restaurantjobs rj ON j.id = rj.job_id WHERE rj.restaurant_id = 1
         $result = DB::table('jobs')
             ->join('restaurantjobs','jobs.id','=','restaurantjobs.job_id')
             ->where('restaurantjobs.restaurant_id',$id)
             ->select('jobs.id', 'jobs.title', 'jobs.wage','jobs.added_at')
+            ->orderByDesc('jobs.added_at')
             ->paginate(5);
         return $result;
     }
@@ -147,15 +132,6 @@ class RestaurantsModel
 
     public function getRestaurantComments($id)
     {
-//        SELECT c.text, u.first_name, u.last_name, c.time
-//FROM comments c
-//INNER JOIN restaurantcomments rc
-//ON c.id = rc.comment_id
-//INNER JOIN usercomments uc
-//ON c.id = uc.comment_id
-//INNER JOIN users u
-//ON uc.user_id = u.id
-//WHERE rc.restaurant_id = 1
         $result = DB::table('comments')
             ->join('restaurantcomments','comments.id','=','restaurantcomments.comment_id')
             ->join('usercomments', 'comments.id','=','usercomments.comment_id')
@@ -193,40 +169,149 @@ class RestaurantsModel
                 ]);
     }
 
-//    public function addLike($id)
-//    {
-//        DB::transaction(function (){
-//           $id_restaurant = DB::table('restaurants')
-//               ->insertGetId([
-//                   "likes" => +1
-//               ]);
-//
-//           DB::table('likes')
-//               ->insert([
-//                   "id" => null,
-//                "restaurant_id" => $id_restaurant,
-//                "user_id" => session()->get('user')->UID
-//               ]);
-//        });
-//    }
+    public function getLoggedRestaurant()
+    {
+        $result = DB::table('restaurants')
+            ->where('id', session()->get('restaurant')->id)
+            ->first();
+        return $result;
+    }
 
-//ovako je bilo staro za lajkovanje
+    public function loginRestaurant($email, $password)
+    {
+        $result = DB::table('restaurants')
+            ->where(
+                [
+                    'email' => $email,
+                    'password' => md5($password)
+                ])
+            ->first();
+        return $result;
+    }
+    public function getCheckoutRestaurantInfo()
+    {
+        $result = DB::table('restaurants')
+            ->where('id', session()->get('cart')->idR)
+            ->get();
+        return $result;
+    }
 
-//DB::table('likes')
-//                ->insert([
-//                    "id" => null,
-//                    "restaurant_id" => $id,
-//                    "user_id" => session()->get('user')->UID
-//                ]);
+    //restaurantAdmin
+    public function getApplicants()
+    {
+        $result = DB::table('applicants as a')
+            ->join('users as u','a.user_id','=','u.id')
+            ->join('jobs as j','a.job_id','=','j.id')
+            ->join('restaurantjobs as rj','j.id','=','rj.job_id')
+            ->join('restaurants as r','rj.restaurant_id','=','r.id')
+            ->where('r.id',session()->get('restaurant')->id)
+            ->orderByDesc('u.first_name')
+            ->select('a.applied_at','u.first_name','u.last_name','u.mail','j.title','j.added_at')
+            ->paginate(3);
+        return $result;
+    }
 
+    public function getApplicantsNumber()
+    {
+        $result = DB::table('applicants as a')
+            ->join('users as u','a.user_id','=','u.id')
+            ->join('jobs as j','a.job_id','=','j.id')
+            ->join('restaurantjobs as rj','j.id','=','rj.job_id')
+            ->join('restaurants as r','rj.restaurant_id','=','r.id')
+            ->where('r.id',session()->get('restaurant')->id)
+            ->orderByDesc('u.first_name')
+            ->select('a.applied_at','u.first_name','u.last_name','u.mail','j.title','j.added_at')
+            ->count('u.id');
+        return $result;
+    }
 
+    public function getOneJobApplicants($id)
+    {
+        $result = DB::table('applicants as a')
+            ->join('users as u','a.user_id','=','u.id')
+            ->join('jobs as j','a.job_id','=','j.id')
+            ->join('restaurantjobs as rj','j.id','=','rj.job_id')
+            ->join('restaurants as r','rj.restaurant_id','=','r.id')
+            ->where(
+                [
+                    'r.id' => session()->get('restaurant')->id,
+                    'j.id' => $id
+                ])
+            ->orderByDesc('u.first_name')
+            ->select('a.applied_at','u.first_name','u.last_name','u.mail','j.title','j.added_at')
+            ->paginate(3);
+        return $result;
+    }
+    public function getApplicantsPosition($id)
+    {
+        $result = DB::table('applicants as a')
+            ->join('users as u','a.user_id','=','u.id')
+            ->join('jobs as j','a.job_id','=','j.id')
+            ->join('restaurantjobs as rj','j.id','=','rj.job_id')
+            ->join('restaurants as r','rj.restaurant_id','=','r.id')
+            ->where(
+                [
+                    'r.id' => session()->get('restaurant')->id,
+                    'j.id' => $id
+                ])
+            ->orderByDesc('u.first_name')
+            ->select('j.title')
+            ->first();
+        return $result;
+    }
 
+    public function getJobApplicantsNumber($id)
+    {
+        $result = DB::table('applicants as a')
+            ->join('users as u','a.user_id','=','u.id')
+            ->join('jobs as j','a.job_id','=','j.id')
+            ->join('restaurantjobs as rj','j.id','=','rj.job_id')
+            ->join('restaurants as r','rj.restaurant_id','=','r.id')
+            ->where(
+                [
+                    'r.id' => session()->get('restaurant')->id,
+                    'j.id' => $id
+                ])
+            ->orderByDesc('u.first_name')
+            ->select('a.applied_at','u.first_name','u.last_name','u.mail','j.title','j.added_at')
+            ->count();
+        return $result;
+    }
 
+    public function getOrders()
+    {
+        $result = DB::table('orders')
+            ->where('restaurant_id', session()->get('restaurant')->id)
+            ->orderByDesc('created_at')
+            ->paginate(5);
+        return $result;
+    }
 
+    public function getRestaurantCategories()
+    {
+        $result = DB::table('categories as c')
+            ->join('restaurantcategories as rc','c.id','=','rc.category_id')
+            ->join('restaurants as r','rc.restaurant_id','=','r.id')
+            ->where('r.id', session()->get('restaurant')->id)
+            ->select('c.id', 'c.name')
+            ->get();
+        return $result;
+    }
 
-
-
-
-
+    public function updateInfo()
+    {
+        DB::table('restaurants')
+            ->where('id', session()->get('restaurant')->id)
+            ->update(
+                [
+                    'name' => $this->restaurantName,
+                    'description' => $this->description,
+                    'delivery_cost' => $this->price_delivery,
+                    'min_delivery' => $this->min_delivery,
+                    'time_delivery' => $this->time_delivery,
+                    'profile_pic' => $this->img,
+                    'location' => $this->location
+                ]);
+    }
 
 }

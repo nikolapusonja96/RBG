@@ -5,3 +5,4 @@
 <script type="text/javascript" src="{{asset('/js/skel.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('/js/util.js')}}"></script>
 <script type="text/javascript" src="{{asset('/js/custom.js')}}"></script>
+

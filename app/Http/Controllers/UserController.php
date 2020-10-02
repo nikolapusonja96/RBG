@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Models\CategoriesModel;
+use App\Http\Models\CommentModel;
 use App\Http\Models\KitchensModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -18,21 +19,16 @@ class UserController extends FrontendController
         return view('pages.login', $this->data);
     }
 
+    //login as user
     public function login(Request $request)
     {
         $mail = $request->input('email');
         $password = $request->input('password');
-
         $user = $this->user->getUser($mail, $password);
-
-
-//        dd($user);
 
         if ($user)
         {
             session()->put('user', $user);
-
-//            dd($user);
         }
         else{
             return redirect()->back()->with('message', 'Pogrešno uneti podaci!');
@@ -40,15 +36,84 @@ class UserController extends FrontendController
 
         if (session()->get('user')->role_id == 1)
         {
-            return redirect('/');
+            return redirect('/admin');
         }
         if (session()->get('user')->role_id == 2)
         {
             return redirect('/');
         }
-        if (session()->get('user')->role_id == 3)
+    }
+
+    public function showUserProfile()
+    {
+        $user = $this->user->getUserProfile();
+        $ordersNumber = $this->user->getUserOrdersNumber();
+        $appliedJobNumber = $this->user->getUserAppliedJobNumber();
+
+        return view('pages.userProfile', $this->data,
+            [
+                "user" => $user,
+                "ordersNumber" => $ordersNumber,
+                "jobNumber" => $appliedJobNumber
+            ]);
+    }
+
+    public function showUserOrders()
+    {
+//        dd(session()->get('user')->UID);
+        $orders = $this->user->getUserOrders();
+//        dd($orders);
+        $orders->transform(function ($order){
+           $order->cart = unserialize($order->cart);
+           return $order;
+        });
+
+        return view('pages.userOrders', $this->data, ['orders' => $orders]);
+    }
+
+    public function showUserLikedRestaurants()
+    {
+        $this->data['restaurants'] = $this->user->getUserLikedRestaurant();
+        $likedNumber = $this->user->getUserLikedRestaurantsNumber();
+
+        return view('pages.userLikedRestaurants', $this->data,
+            [
+                "likedNumber" => $likedNumber
+            ]);
+    }
+    public function showAppliedJobs()
+    {
+        $this->data['jobs'] = $this->user->getUserAppliedJobs();
+        $appliedJobNumber = $this->user->getUserAppliedJobNumber();
+
+        return view('pages.userJobs', $this->data,
+            [
+                "jobNumber" => $appliedJobNumber
+            ]);
+    }
+
+    public function showRestaurantLoginForm()
+    {
+        return view('pages.restaurant-login', $this->data);
+    }
+
+    //login as restaurant
+    public function restaurantLogin(Request $req)
+    {
+        $email = $req->input('emailRestaurant');
+        $password = $req->input('passwordRestaurant');
+
+        $restaurant = $this->restaurant->loginRestaurant($email, $password);
+
+        if ($restaurant)
         {
-            return redirect('/restaurant/profile');
+            session()->put('restaurant', $restaurant);
+
+            return redirect('/restaurant-profile');
+        }
+        else
+        {
+            return redirect()->back()->with('message', 'Pogrešno uneti podaci');
         }
     }
 
@@ -66,13 +131,13 @@ class UserController extends FrontendController
         $this->user->password = $request->input('password');
         $this->user->gender = $request->input('gender');
 
-//        dd($this->user->firstName);
         try{
             $this->user->insert();
 
             return redirect('/login')->with('success', 'Uspešna registracija, sad se možete ulogovati!');
         }catch (QueryException $e){
             Log::info("Neuspešna registracija!" .$e->getMessage());
+            return redirect()->back();
         }
     }
 
@@ -99,59 +164,34 @@ class UserController extends FrontendController
         //ddl
         $this->restaurant->kitchen = $req->input('kitchen');
 
-        //chb za svaki chb upisati u bazu productsrestaurants
         $chbs = $req->input('chbProducts');
 
-//        dd($chbs);
-
         //file
-        $image = $req->file('picture'); //instanca fajla
-//        dd($req->file('picture'));
+        $image = $req->file('picture');
         $tmp_path = $image->getPathName();
         $extension = $image->getClientOriginalExtension();
         $file_name = time() . '.' .$extension;
-        $this->restaurant->img = $path = './img/'.$file_name; //ovo se upisuje
+        $this->restaurant->img = $path = './img/'.$file_name;
 
         if($image->isValid())
         {
             File::move($tmp_path, $path);
             $this->restaurant->restaurantRegister($chbs);
-            return redirect()->back()->with('message', 'Uspešno ste registrovali restoran, sada možete pristupiti vašem panelu');
+
+            return redirect('/login-restaurant')->with('message', 'Uspešno ste registrovali restoran, sada možete pristupiti vašem panelu');
         }
         else{
             return redirect()->back()->with('message', 'Greška!');
         }
-        //
-////        dd($this->user->firstName);
-//        try{
-//            $this->user->insert();
-//
-//            return redirect('/login')->with('success', 'Uspešna registracija, sad se možete ulogovati!');
-//        }catch (QueryException $e){
-//            Log::info("Neuspešna registracija!" .$e->getMessage());
-//        }
-//        $name = $request->input('productName');
-//        $price = $request->input('productPrice');
-//        $brand = $request->input('productBrand');
-//        $bracelet = $request->input('productBracelet');
-//        $braceletColor = $request->input('productBraceletColor');
-//        $description = $request->input('descImage');
-//        $category = $request->input('productCategory');
-//
-//        $image = $request->file('productImage');//instanca fajla
-//        $tmp_path = $image->getPathName();
-//        $extension = $image->getClientOriginalExtension();
-//        $file_name = time() . '.' .$extension;
-//        $path = './img/'.$file_name;
-//
-//
-//        if($image->isValid()) {
-//            File::move($tmp_path, $path);
-//            $this->admin->insert($name, $price, $path, $description, $brand, $bracelet, $braceletColor, $category);
-//            return redirect()->back()->with('message', 'Product has been added succesfully!');
-//        }
-//        else{
-//            return redirect()->back()->with('message', 'Error!');
-//        }
     }
+
+    public function addComment(\App\Http\Requests\CommentRequest $r, $id)
+    {
+        $comments = new CommentModel();
+        $comments->comment = $r->input('comment');
+        $comments->addComment($id);
+
+        return redirect()->back()->with('message', 'Vaš komentar je uspešno objavljen');
+    }
+
 }

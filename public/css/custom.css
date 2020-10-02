@@ -117,7 +117,29 @@
     margin-top: -95px;
     animation: blinker 3s linear infinite;
 }
+.btnRestaurantJobs:disabled{
+    width: 90%;
+    margin-right: 20px;
+    margin-top: -95px;
+    animation: none;
+}
 .btnRestaurantJobs:hover{
+    background-color: white;
+    color: #2e6da4;
+    border:2px solid blue;
+    animation: none;
+}
+.btnJobApply{
+    width: 50%;
+    margin-right: 20px;
+    /*margin-top: -95px;*/
+    animation: blinker 3s linear infinite;
+}
+.btnJobApply:disabled{
+    width: 60%;
+    animation: none;
+}
+.btnJobApply:hover{
     background-color: white;
     color: #2e6da4;
     border:2px solid blue;
@@ -138,7 +160,6 @@
 }
 .job-i-headline{
     color:darkred;
-    /*animation: blinker 3s linear infinite;*/
 }
 .job-i-headline:hover{
     color:darkblue;
@@ -152,7 +173,6 @@
 .job-i-text{
     color:darkred;
 }
-/*style="width: 30%;margin-right:10px;margin-top: -85px;height: 100%"*/
 .register-form{
     height: 494px;
 }
@@ -268,10 +288,25 @@
 }
 
 .cart-img{
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 15px;
     border:2px solid deepskyblue;
+    margin-top: 10px;
+}
+.cartCheckoutBtn{
+    margin-left: 100px;
+    margin-top: -10px;
+    width: 33%;
+    background-color: royalblue;
+}
+.cartCheckoutBtn:hover{
+    margin-left: 100px;
+    margin-top: -10px;
+    width: 33%;
+    background-color: snow;
+    color: dodgerblue;
+    border: 2px solid darkblue;
 }
 .item.list-group-item
 {
@@ -328,6 +363,16 @@
     float: left;
     margin-top: 5px;
     margin-left: 5px;
+    box-shadow: 5px 5px dimgray;
+    border-radius: 10px;
+}
+.likedRestaurantImg
+{
+    width: 140px;
+    height: 90px;
+    float: left;
+    margin-top: 5px;
+    padding-left: 5px;
     box-shadow: 5px 5px dimgray;
     border-radius: 10px;
 }
@@ -432,6 +477,116 @@ input[type="checkbox"] .regChb{
 .strongChbText:hover{
     text-transform: uppercase;
 }
+.RedStar{
+    float: left;
+    font-weight: normal;
+    color:black;
+    font-size: 12px;
+}
+input[type="text"].checkoutInput{
+    color:brown;
+}
+input[type="text"].checkoutInput:hover{
+    cursor: not-allowed;
+}
+.blueText{
+    color:blue;
+}
+input[type="submit"]:disabled{
+    background-color: saddlebrown;
+    opacity: 0.3;
+    cursor: not-allowed;
+    color: black;
+}
+.tooltip-disabledBtn {
+    visibility: hidden;
+    width: 95%;
+    height: 25%;
+    background-color: brown;
+    color: gainsboro;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 6px;
+    border-radius: 6px;
+    margin-left: 5%;
+    z-index: 1;
+    font-size: 18px;
+    position: absolute;
+}
+
+.btnDisabled:hover .tooltip-disabledBtn {
+    visibility: visible;
+    /*margin-left: 0px;*/
+}.tooltip-disabledJobBtn {
+     visibility: hidden;
+     width: 55%;
+     height: 55%;
+     background-color: brown;
+     color: gainsboro;
+     text-align: center;
+     font-weight: bold;
+     padding-top: 6px;
+     border-radius: 6px;
+     margin-left: 5%;
+     z-index: 1;
+     font-size: 18px;
+     position: absolute;
+ }
+.btnDisabled:hover .tooltip-disabledJobBtn {
+    visibility: visible;
+    margin-left: -250px;
+}
+
+.tooltip-disabledSingleJobBtn {
+    visibility: hidden;
+    width: 91%;
+    height: 55px;
+    background-color: brown;
+    color: gainsboro;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 6px;
+    border-radius: 6px;
+    margin-left: -93%;
+    z-index: 2;
+    font-size: 18px;
+    position: absolute;
+}
+.btnDisabled:hover .tooltip-disabledSingleJobBtn{
+    visibility: visible;
+}
+.comment-link{
+    float: right;
+    font-size:16px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-top: -50px;
+}
+.tooltip-disabledCommentBtn {
+    visibility: hidden;
+    width: 41%;
+    height: 60px;
+    background-color: brown;
+    color: gainsboro;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 6px;
+    border-radius: 6px;
+    margin-left: -66%;
+    margin-top: -14px;
+    z-index: 2;
+    font-size: 18px;
+    position: absolute;
+}
+.btnDisabled:hover .tooltip-disabledCommentBtn{
+    visibility: visible;
+}
+
+.normalCheckoutBtn:hover{
+    color:blue;
+    background-color: white;
+    border:2px solid blue;
+}
 
 /*Modal*/
 /* The Modal (background) */
@@ -461,6 +616,38 @@ input[type="checkbox"] .regChb{
 .modal-content-btn{
     border: 1px solid gray
 }
+.modal-comment{
+    width:45%;
+    box-shadow: 16px 5px 16px 11px wheat inset;
+    margin-left: 170px;
+    margin-bottom: 30px;
+}
+.commentInput{
+    width: 60%;
+    margin-right: 100px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+input[type=text].commentInput{
+    border: 1px solid dimgrey;
+    background-color: floralwhite;
+    color:black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 10px 5px 10px 5px dimgray;
+}
+input[type=text].commentInput::placeholder{
+    color:black;
+}
+input[type=text].commentInput:focus{
+    border: none;
+    border-bottom: 2px solid honeydew;
+    background-color: black;
+    color: white;
+}
+input[type=text].commentInput:focus::placeholder{
+    color: white;
+}
 
 /* The Close Button */
 .closeModal {
@@ -470,11 +657,158 @@ input[type="checkbox"] .regChb{
     margin-top: -45px;
     font-weight: bold;
 }
-
 .closeModal:hover,
 .closeModal:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
+.user-ddl-link{
+    height:65px;
+}
+.user-ddl-link:hover{
+    color:darkblue;
+}
+.user-ddl-icon{
+    margin-left: 3px;
+}
+.marginDiv{
+    height: 300px;
+    background-image: url("../img/unhappy.jpg");
+    background-size: 300px 300px;
+    background-repeat: no-repeat;
+    width: 300px;
+}
 
+/*bounce animation*/
+
+.profile-card {
+    background: #FFB300;
+    width: 56px;
+    height: 56px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 70px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
+    animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards,
+    moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards,
+    moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+    materia 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
+}
+
+
+@keyframes init {
+    0% {
+        width: 0px;
+        height: 0px;
+        /*background: black;*/
+    }
+    100% {
+        width: 56px;
+        height: 56px;
+        margin-top: 0px;
+        opacity: 1;
+        /*background: black;*/
+    }
+}
+
+@keyframes moveDown {
+    0% {
+        top: 50%;
+    }
+    50% {
+        top: 40%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes moveUp {
+    0% {
+        background: #FFB300;
+        top: 100%;
+    }
+    50% {
+        top: 40%;
+        background: darkred;
+    }
+    100% {
+        top: 50%;
+        background: blue;
+    }
+}
+
+@keyframes materia {
+    0% {
+        background: #E0E0E0;
+    }
+    50% {
+        border-radius: 4px;
+    }
+    100% {
+        width: 60%;
+        height: 70%;
+        background: #FFFFFF;
+        border-radius: 4px;
+    }
+}
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    width: 100%;
+    text-align: center;
+    /*border: none;*/
+    outline: none;
+    transition: 0.4s;
+}
+.panel-login {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+.resume {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    width: 100%;
+    text-align: center;
+    /*border: none;*/
+    outline: none;
+    transition: 0.4s;
+}
+.resume:hover {
+    background-color: #ccc;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}

@@ -2,7 +2,7 @@ $(document).ready(function(){
     var $container = $('.containerSlider');
     var $slides = $('.containerSlider').find('img');
     var currentSlide = 1;
-    var animateSpeed = 1000;
+    var animateSpeed = 2000;
     var interval = 3000;
 
     var successCallback = function() {
@@ -34,12 +34,11 @@ $(document).ready(function(){
 });
 
 //home slider
-
 $(document).ready(function(){
     var $container = $('.containerHome');
     var $slides = $('.containerHome').find('img');
     var currentSlide = 1;
-    var animateSpeed = 2000;
+    var animateSpeed = 3000;
     var interval = 3000;
 
     var successCallback = function() {
@@ -47,7 +46,7 @@ $(document).ready(function(){
             currentSlide++;
         } else {
             $container.css({'marginLeft': '0px'});
-            currentSlide =1;
+            currentSlide =2;
         }
     };
 
@@ -75,7 +74,9 @@ btn.onclick = function() {
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
+    // if (event.target == modal) {
+        modal.style.display = "none";
+    // }
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -85,3 +86,21 @@ window.onclick = function(event) {
     }
 }
 
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}

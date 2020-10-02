@@ -34,7 +34,7 @@ class RestaurantRegistration extends FormRequest
             'deliveryMinimum' => 'required',
             'deliveryTime' => 'required',
             'kitchen' => 'required',
-            'picture' => 'required' //image ako ne radi mimes
+            'picture' => 'required'
         ];
     }
 }
