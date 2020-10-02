@@ -1,2 +1,2 @@
 * linguist-vendored
-*.php linguist-vendored=false
+*.blade.php linguist-vendored=false
